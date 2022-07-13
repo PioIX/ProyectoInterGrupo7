@@ -1,6 +1,6 @@
-@import URL('http://fonts.cdnfonts.com/css/arcade-classic');
-@import URL('http://fonts.cdnfonts.com/css/magz');
-@import url('http://fonts.cdnfonts.com/css/bungee-inline'); /*'Bungee Inline'*/
+@import URL('https://fonts.cdnfonts.com/css/arcade-classic');
+@import URL('https://fonts.cdnfonts.com/css/magz');
+@import url('https://fonts.cdnfonts.com/css/bungee-inline'); /*'Bungee Inline'*/
 
 *{
     margin:0 auto;
@@ -13,7 +13,7 @@
     height:92.5vh;
     padding:15px;
     margin:0;
-    background-image: url('static/img/Fondo.jpg');
+    background-image: url('img/Fondo.jpg');
     color: #dcdde1;
     
     display:none;

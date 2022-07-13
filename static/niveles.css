@@ -1,7 +1,6 @@
-@import URL('http://fonts.cdnfonts.com/css/arcade-classic');
-@import URL('http://fonts.cdnfonts.com/css/magz');
-@import url('http://fonts.cdnfonts.com/css/bungee-inline'); /*'Bungee Inline'*/
-
+@import URL('https://fonts.cdnfonts.com/css/arcade-classic');
+@import URL('https://fonts.cdnfonts.com/css/magz');
+@import url('https://fonts.cdnfonts.com/css/bungee-inline'); /*'Bungee Inline'*/
 *{
     margin:0 auto;
     box-sizing:border-box;
@@ -13,7 +12,7 @@
     height:92.5vh;
     padding:15px;
     margin:0;
-    background-image: url('static/img/Fondo.jpg');
+    background-image: url('img/Fondo.jpg');
     color: #dcdde1;
     
     display:none;
@@ -21,67 +20,93 @@
     align-items: center;
     text-align:center;
 }
- h2{
+h2{
     color: #E84BC7;
     font-family: 'ArcadeClassic';
     font-size: 30px;
     padding-top: 1%;
     padding-bottom: 1%;
 }
-.rectangulo .contenido-cajas{
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+.nivel1 {
+    width: 400px; 
+    height: 180px; 
+    background: #7ED957;
+    border-radius:6px;
+    font-family: 'ArcadeClassic';
+    color: #008037;
+    margin: auto;
+    font-size: 30px;
+    border: #7ED957;
 }
-.rectangulo .habilidades{
-  margin:60px 0;  
+.nivel1:active{
+    border:none;
+    background-color: #b2e69d;
+    color: #008037;
 }
-.rectangulo.contenido-cajas{
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+.nivel2 {
+    width: 400px; 
+    height: 180px; 
+    background: #FF5757;
+    border-radius:6px;
+    font-family: 'ArcadeClassic';
+    color: #FF1616;
+    margin: auto;
+    font-size: 30px;
+    border: #FF5757;
+}
+.nivel2:active{
+    border:none;
+    background-color: #fa8888;
+    color: #FF1616;
 }
 
-.rectangulo.habilidades .contenido-cajas .tarjeta{
-  width: 30%;
-  text-align: center;
+#estilo-botones{
+    padding: 5em;
 }
 
-.rectangulo .habilidades .contenido-cajas .tarjeta .contenido-tarjeta .titulo-tarjeta{
-  margin:10px 0;   
-}
-
-  .rectangulo {
+.rectangulo {
     width: 90%; 
     height: 600px; 
     background: #BDE2F1;
     border-radius:15px;
+    display: flex;
+    flex-direction: column;
 }
-  p{
-    font-family: 'ArcadeClassic';
-    text-align:justify;
-    color: #E84BC7;
-    font-size: 22px;
-    padding-left: 2%;
-    padding-right: 2%;
-    padding-top: 1%;
-  }
-
-  img {
-    height: 30px;
-  }
-  
-  #screen1{
-    display:flex;
-  }
- 
-  .navbar{
-    text-align: center;
-    background-color: #065A82;
+.dificultades{
     width: 100%;
-    padding-top: 9px;
-    padding-bottom: 9px;
-  }
+    text-align: center;
+    height: 10%;
+}
+
+.cont{
+    margin-top: 30px;
+    width: 80%;
+    height: 80%;
+    display: flex;
+
+    
+}
+
+p{
+text-align:center;
+padding:20px;
+}
+
+img {
+height: 30px;
+}
+
+#screen1{
+display:flex;
+}
+
+.navbar{
+text-align: center;
+background-color: #065A82;
+width: 100%;
+padding-top: 9px;
+padding-bottom: 9px;
+}
 
 .navbar:hover{
   color:#38ABD9;

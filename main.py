@@ -120,6 +120,7 @@ def cargarPregunta():
   return render_template('prueba.html', fila=pregunta)
 
 '''
+hola
   def cargarDatos():
    conn = sqlite3.connect('tabla.db')
   #falta calcular tiempo final y puntaje

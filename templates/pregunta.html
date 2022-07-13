@@ -1,0 +1,65 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Involucrados</title>
+    <link rel="stylesheet"  href="{{ url_for('static', filename='pregunta.css') }}"> 
+</head>
+<body>
+    <div class="container">
+
+        <section id="screen1">
+        <div>
+            <div class="rectangulo" >
+                <p>pregunta</p>
+            
+            </div>
+            <div class="respuesta">
+                <a href="datos.html">
+                    <div class="primeraOpcion" >
+                        <p>primera opcion</p>
+                    </div>    
+                </a>
+                <a href="datos.html">
+                    <div class="segundaOpcion" >
+                        <p>segunda opcion</p>
+                    </div>    
+                </a>
+                <a href="datos.html">
+                    <div class="terceraOpcion" >
+                        <p>tercera opcion</p>
+                    </div>    
+                </a>
+                <a href="datos.html">
+                    <div class="cuartaOpcion" >
+                        <p>cuarta opcion</p>
+                    </div>    
+                </a>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="navbar">
+            <table  width="100%">
+                
+                <tr>
+                    <td width="%33" aling="center">
+                        <a href={{ url_for('ret_involucrados')}} class="active nav__link"><img src="{{ url_for('static', filename='img/Inicio.png') }}" alt="" class="imagen.Inicio"></a>
+                    </td>
+                    <td width="%33" aling="center">                
+                        <a href={{ url_for('ret_reglas') }} class="nav__link"><img src="{{ url_for('static', filename='img/Reglas.png') }}" alt="" class="imagen.Reglas"></a>
+                    </td>
+                    <td width="%33" aling="center">            
+                        <a href={{ url_for('ret_nosotras') }} class="nav__link"><img src="{{ url_for('static', filename='img/Nosotras.png') }}" alt="" class="imagen.Nosotras"></a>
+                    </td>
+
+                </tr>
+              
+            </table>            
+        </div>
+    </footer>
+    
+</body>
+</html>

@@ -1,0 +1,131 @@
+@import url('http://fonts.cdnfonts.com/css/arcade-classic');
+@import url('http://fonts.cdnfonts.com/css/magz');
+@import url('http://fonts.cdnfonts.com/css/bungee-inline'); 
+/*'Bungee Inline'*/
+
+*{
+    margin:0 auto;
+    box-sizing:border-box;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  section{
+    width:100%;
+    height:92.3vh;
+    padding:15px;
+    margin:0;
+    background-image: 'static/img/Fondo.jpg';
+    color: #dcdde1;
+    
+    display:none;
+    justify-content:center;
+    align-items: center;
+    text-align:center;
+  }
+  h1{
+    font-family: 'magz';
+    font-size: 700%;
+    color: #E84BC7;
+    padding-bottom: 10%;
+    text-shadow: #111111;
+  }
+  .rectangulo {
+    width: 500px; 
+    height: 250px; 
+    background: #065A82;
+    border-radius:15px;
+}
+  p{
+    text-align:center;
+    padding:20px;
+  }
+
+  img {
+    height: 30px;
+  }
+  
+  #screen1{
+    display:flex;
+  }
+  .form-floating{
+    width:460px;
+    height: 80px;
+    padding:5px;
+    top:30px;
+    position:relative;
+    border-radius:15px;
+    font-family: 'ArcadeClassic';
+    text-align: center;
+    background-color: #BDE2F1;
+    color: #E84BC7;
+    font-size: 30px;
+
+  }
+  
+  .form-control{
+    width:450px;
+    height:83px;
+    top:50px;
+    position:relative;
+    border-radius:15px;
+    display:block;
+    text-align: center;
+    font-size: 30px;
+    
+    font-family: 'ArcadeClassic';
+
+  }
+  
+  .form-control:active{
+    border:none;
+    
+    background-color: #738BD3;
+    color:#E84BC7;
+  }
+
+  .boton{
+    box-sizing:content-box;
+    border: none;
+    background-color:#38ABD9;
+    color: #E84BC7;
+  }
+  
+  .boton:active{
+    border:none;
+    background-color: #738BD3;
+    color:#212121;
+  }
+
+  .play{
+    width:450px;
+    height:83px;
+    top:50px;
+    position:relative;
+    border-radius:15px;
+    display:block;
+    text-align: center;
+    font-size: 30px;
+    font-family: 'ArcadeClassic';
+
+  }
+  
+  .play:active{
+    border:none;
+    
+    background-color: #738BD3;
+    color:#E84BC7;
+  }
+
+  .respuesta{
+    width:40%;
+    height:60px;
+    margin:5px;
+  } 
+
+  .navbar{
+    text-align: center;
+    background-color: #065A82;
+    width: 100%;
+    padding-top: 7px;
+    padding-bottom: 7px;
+  }

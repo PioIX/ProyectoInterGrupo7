@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Involucrados</title>
+    <link type = "text/css" media = "all" rel="stylesheet" href="{{ url_for('static', filename='involucrados3.css') }}">
+</head>
+<body>
+    <main class="form-signin">
+        <form methond="POST" action="/signin" id="formulario1">
+            <div class="container">
+                <section id="screen1">
+                <div>
+                    <h1>Involucrados</h1>
+                    <div class="rectangulo">
+                        <input name="usuario" type="text" placeholder="Nombre"  class="form-control" id="usuario">  </input>
+                        <button type="submit" class="boton play"  href="niveles.html"> JUGAR </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </main>
+   
+    <footer>
+        <div class="navbar">
+            <table  width="100%">
+                <tr>
+                    <td width="%33" aling="center">
+                        
+                      <a href="involucrados.html" class="active nav__link"><img src="{{ url_for('static', filename='img/Inicio.png') }}" alt="" class="imagen.Inicio"></a>
+                    </td>
+                    <td width="%33" aling="center">                                
+                       <a href="reglas.html" class="nav__link"><img src="{{ url_for('static', filename='img/Reglas.png') }}" alt="" class="imagen.Reglas"></a> 
+                    </td>
+                    <td width="%33" aling="center"> 
+                       
+                      <a href="nosotras.html" class="nav__link"><img src="{{ url_for('static', filename='img/Nosotras.png') }}" alt="" class="imagen.Nosotras"></a>
+                    </td>
+                </tr>
+            </table>            
+        </div>
+    </footer>
+</body>
+</html>

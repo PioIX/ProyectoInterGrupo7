@@ -5,8 +5,9 @@ from flask_cors import CORS
 app = Flask(__name__)
 cors = CORS(app)
 
-pregunta = 0
 tematica = ""
+dificultad = 0
+id = 0
 
 class Persona:
   def __init__(self, nombre=''):
@@ -17,7 +18,7 @@ class Persona:
       
 class Pregunta:
   def __init__(self, tema='', dificultad=''):
-    self.id_pregunta = 1 
+    self.id_pregunta = 0 
     self.contenido = ""
     self.tema = ""
     self.dificultad = 0
@@ -73,13 +74,13 @@ def signin():
 def nivel1():
   dificultad = 1
   pregu.dificultad = dificultad
-  return render_template('tematica4.html')
+  return render_template('tematica.html')
 
 @app.route('/nivel2')
 def nivel2():
   dificultad = 2
   pregu.dificultad = dificultad
-  return render_template('tematica4.html')
+  return render_template('tematica.html')
 
 
 @app.route('/tematica1')
@@ -92,16 +93,16 @@ def tematica1():
 def tematica2():
   tema = "etnia"
   pregu.tema = tema
-  pregunta=+1
-  #pregu=Pregunta(tematica, nivel)
   print(pregu.dificultad)
   print(pregu.tema)
   conn = sqlite3.connect('tabla.db')
-  q = f"""SELECT contenido FROM Preguntas WHERE dificultad == {pregu.dificultad} and tema == '{pregu.tema}' """
+#https://docs.python.org/3.7/library/sqlite3.html
+  q = f"""SELECT contenido FROM Preguntas WHERE id_pregunta = {pregu.id_pregunta} and dificultad == {pregu.dificultad} and tema == '{pregu.tema}' """
   print(q)
   resu = conn.execute(q)
   print(resu)
   conn.commit() 
+  pregu.id_pregunta =+ 1
   return render_template('prueba.html', pregunta=resu)
 
 @app.route('/tematica3')

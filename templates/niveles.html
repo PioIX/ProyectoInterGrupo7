@@ -8,50 +8,49 @@
     <link rel="stylesheet" <href="{{ url_for('static', filename='niveles.css') }}">
 </head>
 <body>
-    <div class="container">
+  <div class="container">
+
         <section id="screen1">
+        
         <div class="rectangulo">
             <div calss="dificultades">
                 <h2>DIFICULTADES</h2>
                 <hr color= "#E84BC7" size=2 width="1185px">
             </div>
             <div class = "cont">
-                <main class="form-signin">
-            <form method="GET" action="/nivel1" id="formulario1">
-              <div class="nivel1" id="estilos-botones">
-                <input type="submit" class="nivel1" value="NIVEL 1"/>
-              </div>
-            </form>
-          </main>
-          <main class="form-signin">
-            <form method="GET" action="/nivel2" id="formulario1">
-              <div class="nivel2" id="estilos-botones"> 
-                <input type="submit" class="nivel2" value="NIVEL 2"/>
-              </div>
-            </form>
-          </main>
+                <div class="nivel1" id="estilos-botones">
+                    <a href="{{ url_for('nivel1') }}">   
+                        <input type="button" class="nivel1" value="NIVEL 1">
+                    </a>
+                </div>
+                <div class="nivel2" id="estilos-botones"> 
+                    <a href="{{ url_for('nivel2') }}">   
+                        <input type="button" class="nivel2" value="NIVEL 2">
+                    </a>
                 </div>
             </div>
         </div>
     
     </div>
-    <footer>
+    
+    </div>
+     <footer>
         <div class="navbar">
             <table  width="100%">
-                  
                 <tr>
                     <td width="%33" aling="center">
-                        <a href={{ url_for('index')}} class="active nav__link"><img src="{{ url_for('static', filename='img/Inicio.png') }}" alt="" class="imagen.Inicio"></a>
+                        
+                      <a href="{{ url_for('index') }}" class="active nav__link"><img src="{{ url_for('static', filename='img/Inicio.png') }}" alt="" class="imagen.Inicio"></a>
                     </td>
-                    <td width="%33" aling="center">                
-                        <a href={{ url_for('reglas') }} class="nav__link"><img src="{{ url_for('static', filename='img/Reglas.png') }}" alt="" class="imagen.Reglas"></a>
+                    <td width="%33" aling="center">                                
+                       <a href="{{ url_for('reglas') }}" class="nav__link"><img src="{{ url_for('static', filename='img/Reglas.png') }}" alt="" class="imagen.Reglas"></a> 
+                      
                     </td>
-                    <td width="%33" aling="center">            
-                        <a href={{ url_for('nosotras') }} class="nav__link"><img src="{{ url_for('static', filename='img/Nosotras.png') }}" alt="" class="imagen.Nosotras"></a>
+                    <td width="%33" aling="center"> 
+                       
+                      <a href="{{ url_for('nosotras') }}" class="nav__link"><img src="{{ url_for('static', filename='img/Nosotras.png') }}" alt="" class="imagen.Nosotras"></a>
                     </td>
-
                 </tr>
-              
             </table>            
         </div>
     </footer>

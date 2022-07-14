@@ -1,15 +1,16 @@
 @import URL('https://fonts.cdnfonts.com/css/arcade-classic');
 @import URL('https://fonts.cdnfonts.com/css/magz');
 @import url('https://fonts.cdnfonts.com/css/bungee-inline'); /*'Bungee Inline'*/
+
 *{
     margin:0 auto;
     box-sizing:border-box;
     font-family: 'DM Sans', sans-serif;
-}
+  }
 
   section{
     width:100%;
-    height:92.5vh;
+    height:92.3vh;
     padding:15px;
     margin:0;
     background-image: url('img/Fondo.jpg');
@@ -19,7 +20,8 @@
     justify-content:center;
     align-items: center;
     text-align:center;
-}
+  }
+  
 h2{
     color: #E84BC7;
     font-family: 'ArcadeClassic';
@@ -27,7 +29,7 @@ h2{
     padding-top: 1%;
     padding-bottom: 1%;
 }
-.nivel1 {
+.nivelUno {
     width: 400px; 
     height: 180px; 
     background: #7ED957;
@@ -63,7 +65,6 @@ h2{
 #estilo-botones{
     padding: 5em;
 }
-
 .rectangulo {
     width: 90%; 
     height: 600px; 
@@ -88,24 +89,24 @@ h2{
 }
 
 p{
-text-align:center;
-padding:20px;
+    text-align:center;
+    padding:20px;
 }
 
 img {
-height: 30px;
+    height: 30px;
 }
 
 #screen1{
-display:flex;
+    display:flex;
 }
 
 .navbar{
-text-align: center;
-background-color: #065A82;
-width: 100%;
-padding-top: 9px;
-padding-bottom: 9px;
+    text-align: center;
+    background-color: #065A82;
+    width: 100%;
+    padding-top: 9px;
+    padding-bottom: 9px;
 }
 
 .navbar:hover{

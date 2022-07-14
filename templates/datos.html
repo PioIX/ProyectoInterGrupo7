@@ -28,16 +28,19 @@
             <table  width="100%">
                 <tr>
                     <td width="%33" aling="center">
-                        <a href="involucrados.html" class="active nav__link"><img src="img/Inicio.png" alt="" class="imagen.Inicio"></a> 
+                        
+                      <a href="{{ url_for('index') }}" class="nav__link"><img src="{{ url_for('static', filename='img/Reglas.png') }}" alt="" class="imagen.Reglas"></a> 
                     </td>
-                    <td width="%33" aling="center">                
-                        <a href="reglas.html" class="nav__link"><img src="img/Reglas.png" alt="" class="imagen.Reglas"></a>
+                    <td width="%33" aling="center">                                
+                       <a href="{{ url_for('reglas') }}" class="nav__link"><img src="{{ url_for('static', filename='img/Reglas.png') }}" alt="" class="imagen.Reglas"></a> 
+                      
                     </td>
-                    <td width="%33" aling="center">            
-                        <a href="nosotras.html" class="nav__link"><img src="img/Nosotras.png" alt="" class="imagen.Nosotras"></a>
+                    <td width="%33" aling="center"> 
+                       
+                      <a href="{{ url_for('nosotras') }}" class="nav__link"><img src="{{ url_for('static', filename='img/Nosotras.png') }}" alt="" class="imagen.Nosotras"></a>
                     </td>
                 </tr>
-            </table>            
+            </table>               
         </div>
     </footer>
 </body>

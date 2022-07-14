@@ -27,7 +27,7 @@ pregu = Pregunta()
 
 @app.route('/')
 def index():
-  return render_template('involucrados.html')
+  return render_template('index.html')
 
 @app.route('/nosotras')
 def nosotras():
@@ -36,6 +36,10 @@ def nosotras():
 @app.route('/reglas')
 def reglas():
   return render_template('reglas.html')
+
+@app.route('/niveles')
+def niveles():
+  return render_template('niveles.html')
   
 @app.route('/signin', methods=['POST', 'GET'])
 def signin():

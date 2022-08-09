@@ -9,13 +9,13 @@
 </head>
 <body>
     <main class="form-signin">
-        <form methond="POST" action="/signin" id="formulario1">
+        <form method="POST" action="/signin" id="formulario1">
             <div class="container">
                 <section id="screen1">
                 <div>
                     <h1>Involucrados</h1>
                     <div class="rectangulo">
-                        <input name="usuario" type="text" placeholder="Nombre"  class="form-control" id="usuario">  </input>
+                        <input required name="usuario" type="text" placeholder="Nombre"  class="form-control" id="usuario">  </input>
                         <button type="submit" class="boton play"  href="{{ url_for('niveles') }}"> JUGAR </button>
                     </div>
                 </div>

@@ -1,100 +1,101 @@
 @import URL('https://fonts.cdnfonts.com/css/arcade-classic');
 @import URL('https://fonts.cdnfonts.com/css/magz');
 @import url('https://fonts.cdnfonts.com/css/bungee-inline'); /*'Bungee Inline'*/
+
 *{
-    margin:0 auto;
-    box-sizing:border-box;
-    font-family: 'DM Sans', sans-serif;
-  }
+  margin:0 auto;
+  box-sizing:border-box;
+  font-family: 'DM Sans', sans-serif;
+}
 
-  section{
-    width:100%;
-    height:92.5vh;
-    padding:15px;
-    margin:0;
-    background-image: url('img/Fondo.jpg');
-    color: #dcdde1;
-    
-    display:none;
-    justify-content:center;
-    align-items: center;
-    text-align:center;
-  }
-  h1{
-    font-family: 'magz';
-    font-size: 700%;
-    color: #E84BC7;
-    padding-bottom: 10%;
-    text-shadow: 1px 2px #BDE2F1;
-  }
-  .rectangulo {
-    justify-content:center;
-    width: 1000px; 
-    height: 200px; 
-    background: #BDE2F1;
-    border-radius:15px; 
-  }
-  h2{
-    font-family: 'ArcadeClassic';
-    font-size: 380%;
-    color: #E84BC7;
-    padding-bottom: 10%;
-  }
-  p{
-    text-align:center;
-    padding:20px;
-  }
+section{
+  width:100%;
+  height:92.5vh;
+  padding:15px;
+  margin:0;
+  background-image: url('img/Fondo.jpg');
+  color: #dcdde1;
+  
+  display:none;
+  justify-content:center;
+  align-items: center;
+  text-align:center;
+}
+h1{
+  font-family: 'magz';
+  font-size: 700%;
+  color: #E84BC7;
+  padding-bottom: 10%;
+  text-shadow: 2.5px 2.5px #85dcff;
+}
+.rectangulo {
+  justify-content:center;
+  width: 1000px; 
+  height: 200px; 
+  background: #BDE2F1;
+  border-radius:15px; 
+}
+h2{
+  font-family: 'ArcadeClassic';
+  font-size: 380%;
+  color: #E84BC7;
+  padding-bottom: 10%;
+}
+p{
+  text-align:center;
+  padding:20px;
+}
 
-  img {
-    height: 30px;
-  }
-  
-  #screen1{
-    display:flex;
-  }
-  
-  
-  .puntaje{
-    display:flex;
-    text-align: center;
-  }
-  .botonFlecha{
-    box-sizing:content-box;
-    border: none;
-    margin-left: -300px;
-    margin-top: -11px;
-    text-align: center;
-  }
-  
-  .botonFlecha:active{
-    border:none;
-  }
-  
-  .play{
-    width:450px;
-    height:83px;
-    top:50px;
-    position:relative;
-    border-radius:15px;
-    display:block;
-    text-align: center;
-    font-size: 30px;
-    font-family: 'ArcadeClassic';
-  }
-  
-  .play:active{
-    border:none;
-    background-color: #738BD3;
-    color:#E84BC7;
-  }
-  
-  .navbar{
-    text-align: center;
-    background-color: #065A82;
-    width: 100%;
-    padding-top: 9px;
-    padding-bottom: 9px;
-  }
+img {
+  height: 30px;
+}
+
+#screen1{
+  display:flex;
+}
+
+
+.puntaje{
+  display:flex;
+  text-align: center;
+}
+.botonFlecha{
+  box-sizing:content-box;
+  border: none;
+  margin-left: -300px;
+  margin-top: -11px;
+  text-align: center;
+}
+
+.botonFlecha:active{
+  border:none;
+}
+
+.play{
+  width:450px;
+  height:83px;
+  top:50px;
+  position:relative;
+  border-radius:15px;
+  display:block;
+  text-align: center;
+  font-size: 30px;
+  font-family: 'ArcadeClassic';
+}
+
+.play:active{
+  border:none;
+  background-color: #738BD3;
+  color:#E84BC7;
+}
+
+.navbar{
+  text-align: center;
+  background-color: #065A82;
+  width: 100%;
+  padding-top: 9px;
+  padding-bottom: 9px;
+}
 
 .navbar:hover{
   color:#38ABD9;

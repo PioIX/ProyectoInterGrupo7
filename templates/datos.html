@@ -15,10 +15,10 @@
             <h1>Involucrados</h1>
             <div class="rectangulo">
             </div>
-            <div CLASS="puntaje">
+            <div CLASS="puntaje" id= "resultado">
                 <h2>¡CORRECTO!</h2>
-                <a href="pregunta.html" type="button" class="botonFlecha" onclick="obtenerNombre()">
-                    <img src="static/img/Flecha.png" alt="" class="flecha">
+                <a href="{{ url_for('pregunta') }}" type="button" class="botonFlecha" onclick="obtenerNombre()">
+                    <img src="{{ url_for('static', filename='img/Flecha.png') }}" alt="" class="flecha">
                 </a> 
             </div>
         </div>

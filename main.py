@@ -1,9 +1,12 @@
 from flask import Flask, render_template, request
 import sqlite3 
 from flask_cors import CORS
+from flask import session 
 
 app = Flask(__name__)
 cors = CORS(app)
+
+app.secret_key = 'esto-es-una-clave-muy-secreta'
 
 tematica = ""
 dificultad = 0
@@ -18,7 +21,7 @@ class Persona:
       
 class Pregunta:
   def __init__(self, tema='', dificultad=''):
-    self.id_pregunta = 0 
+    self.id = 0
     self.contenido = ""
     self.tema = ""
     self.dificultad = 0
@@ -63,6 +66,7 @@ def signin():
                   VALUES ('{usuario.nombre}','0',0);"""
         conn.execute(r)
         conn.commit() 
+      conn.close()
   else:
       if (request.method=="GET"):
         msg="Hola"
@@ -72,38 +76,69 @@ def signin():
 
 @app.route('/nivel1')
 def nivel1():
-  dificultad = 1
+  session['dificultad'] = 1
   pregu.dificultad = dificultad
   return render_template('tematica.html')
 
 @app.route('/nivel2')
 def nivel2():
-  dificultad = 2
+  session['dificultad'] = 2
   pregu.dificultad = dificultad
   return render_template('tematica.html')
 
-
 @app.route('/tematica1')
 def tematica1():
+  try:
+    session['preguntaActual'] += 1
+  except:
+    session['preguntaActual'] = 0
+  
+  if (pregu.dificultad == 1):
+    pregu.id = 31
+  else:
+    pregu.id = 36
+    
   tema = "genero"
-  pregu.tema = tema
-  return render_template('pregunta.html')
-
-@app.route('/tematica2')
-def tematica2():
-  tema = "etnia"
   pregu.tema = tema
   print(pregu.dificultad)
   print(pregu.tema)
   conn = sqlite3.connect('tabla.db')
-#https://docs.python.org/3.7/library/sqlite3.html
-  q = f"""SELECT contenido FROM Preguntas WHERE id_pregunta = {pregu.id_pregunta} and dificultad == {pregu.dificultad} and tema == '{pregu.tema}' """
-  print(q)
+  q = f"""SELECT contenido FROM Preguntas WHERE  id_pregunta == '{pregu.id}'"""
   resu = conn.execute(q)
-  print(resu)
+  lista = resu.fetchall() 
+  pregunta = lista[0]
+  print(lista[0])
+
+  q = f"""SELECT contenido FROM Respuestas WHERE  id_pregunta == '{pregu.id}'"""
+  resu = conn.execute(q)
+  
+  
   conn.commit() 
-  pregu.id_pregunta =+ 1
-  return render_template('prueba.html', pregunta=resu)
+  conn.close()
+  return render_template('prueba.html', pregunta = pregunta, opciones = resu)
+
+
+
+@app.route('/tematica2')
+def tematica2():
+  try:
+    session['preguntaActual'] += 1
+  except:
+    session['preguntaActual'] = 0
+  tema = "etnia"
+  pregu.tema = tema
+  conn = sqlite3.connect('tabla.db')
+  q = f"""SELECT contenido, id_pregunta FROM Preguntas WHERE  dificultad == {session['dificultad']} and tema == '{pregu.tema}' and """
+  resu = conn.execute(q)
+  lista = resu.fetchall() 
+  pregunta = lista[0]
+  q = f"""SELECT contenido FROM Respuestas WHERE id_pregunta = {lista[0][1]} """
+  resu = conn.execute(q)
+  opciones = resu.fetchall())
+  conn.commit() 
+  conn.close()
+  return render_template('prueba.html', pregunta = pregunta, opciones = )
+
 
 @app.route('/tematica3')
 def tematica3():
@@ -120,8 +155,9 @@ def cargarPregunta():
   resu = conn.execute(q)
   for fila in resu:
     return(fila)
-  conn.close()
   conn.commit() 
+  conn.close()
+  
   return render_template('prueba.html', fila=pregunta)
 
 '''
@@ -136,3 +172,7 @@ hola
   conn.commit()
 ''' 
 app.run(host='0.0.0.0', port=81)
+
+@app.route('/datos')
+def datos():
+  return render_template('datos.html')

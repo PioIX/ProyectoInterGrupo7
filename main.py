@@ -128,16 +128,20 @@ def tematica2():
   tema = "etnia"
   pregu.tema = tema
   conn = sqlite3.connect('tabla.db')
-  q = f"""SELECT contenido, id_pregunta FROM Preguntas WHERE  dificultad == {session['dificultad']} and tema == '{pregu.tema}' and """
+  q = f"""SELECT contenido, id_pregunta FROM Preguntas WHERE  dificultad == {session['dificultad']} and tema == '{pregu.tema}' """
   resu = conn.execute(q)
   lista = resu.fetchall() 
   pregunta = lista[0]
   q = f"""SELECT contenido FROM Respuestas WHERE id_pregunta = {lista[0][1]} """
   resu = conn.execute(q)
-  opciones = resu.fetchall())
+  lista_r = resu.fetchall() 
+  opcion1 = lista_r[0]
+  opcion2 = lista_r[1]
+  opcion3 = lista_r[2]
+  opcion4 = lista_r[3]
   conn.commit() 
   conn.close()
-  return render_template('prueba.html', pregunta = pregunta, opciones = )
+  return render_template('prueba.html', pregunta = pregunta, opcion1 = opcion1)
 
 
 @app.route('/tematica3')

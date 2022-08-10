@@ -62,7 +62,7 @@ def signin():
             
             nombre = request.form['usuario']
             usuario = Persona(nombre)
-            session['usuarioGlobal'] = usuario
+            session['usuarioGlobal'] = usuario.nombre
             msg = nombre
             #ES PARA VER SI YA EXISTE ESE NOMBRE
             q = f"""SELECT nombre FROM Usuarios WHERE nombre = '{usuario.nombre}'"""
@@ -99,7 +99,6 @@ def nivel2():
     pregu.dificultad = dificultad
     return render_template('tematica.html')
 
-
 @app.route('/tematica1')
 def tematica1():
     try:
@@ -109,11 +108,13 @@ def tematica1():
     tema = "genero"
     pregu.tema = tema
     conn = sqlite3.connect('tabla.db')
-    q = f"""SELECT contenido, id_pregunta FROM Preguntas WHERE  dificultad == {session['dificultad']} and tema == '{pregu.tema}' """
+    q = f"""SELECT contenido, id_pregunta, dato FROM Preguntas WHERE  dificultad == {session['dificultad']} and tema == '{pregu.tema}' """
     resu = conn.execute(q)
     lista = resu.fetchall()
+    dato = ""
+    session[dato] = lista[0][2]
     pregunta = lista[0]
-    q = f"""SELECT contenido, correcto, id_respuesta FROM Respuestas WHERE id_pregunta = {lista[0][1]} """
+    q = f"""SELECT contenido, correcta, id_respuesta FROM Respuestas WHERE id_pregunta = {lista[0][1]} """
     resu = conn.execute(q)
     lista_r = resu.fetchall()
     opcion1 = lista_r[0]
@@ -128,6 +129,7 @@ def tematica1():
                            opcion2=opcion2[0],
                            opcion3=opcion3[0],
                            opcion4=opcion4[0])
+
 
 
 @app.route('/tematica2')
@@ -139,9 +141,11 @@ def tematica2():
     tema = "etnia"
     pregu.tema = tema
     conn = sqlite3.connect('tabla.db')
-    q = f"""SELECT contenido, id_pregunta FROM Preguntas WHERE  dificultad == {session['dificultad']} and tema == '{pregu.tema}' """
+    q = f"""SELECT contenido, id_pregunta, dato FROM Preguntas WHERE  dificultad == {session['dificultad']} and tema == '{pregu.tema}' """
     resu = conn.execute(q)
     lista = resu.fetchall()
+    dato = ""
+    session[dato] = lista[0][2]
     pregunta = lista[0]
     q = f"""SELECT contenido FROM Respuestas WHERE id_pregunta = {lista[0][1]} """
     resu = conn.execute(q)
@@ -158,6 +162,7 @@ def tematica2():
                            opcion2=opcion2[0],
                            opcion3=opcion3[0],
                            opcion4=opcion4[0])
+
 
 
 @app.route('/tematica3')
@@ -169,10 +174,13 @@ def tematica3():
     tema = "educacion"
     pregu.tema = tema
     conn = sqlite3.connect('tabla.db')
-    q = f"""SELECT contenido, id_pregunta FROM Preguntas WHERE  dificultad == {session['dificultad']} and tema == '{pregu.tema}' """
+    q = f"""SELECT contenido, id_pregunta, dato FROM Preguntas WHERE  dificultad == {session['dificultad']} and tema == '{pregu.tema}' """
     resu = conn.execute(q)
     lista = resu.fetchall()
+    dato = ""
+    session[dato] = lista[0][2]
     pregunta = lista[0]
+    #hacer un for para que sea lista[i] y a i lo hacemos global y lñe sumamos uno.
     q = f"""SELECT contenido FROM Respuestas WHERE id_pregunta = {lista[0][1]} """
     resu = conn.execute(q)
     lista_r = resu.fetchall()
@@ -190,17 +198,42 @@ def tematica3():
                            opcion4=opcion4[0])
 
 
+
 @app.route('/pregunta')
 def pregunta():
     return render_template('pregunta.html')
 
 @app.route('/opcion1')
 def opcion1():
+  '''
   conn = sqlite3.connect('tabla.db')
-  q = f"""SELECT coreecto FROM Respuestas WHERE id_respuesta = {lista[0][1]} """
+  q = f"""SELECT correcta FROM Respuestas WHERE id_respuesta = {session[pregunta]} """
+  resu = conn.execute(q)
   conn.commit()
   conn.close()
+  '''
+  dato = ""
+  print(session[dato])
+  return render_template('datos.html', dato = session[dato])
   return render_template('datos.html')
+
+@app.route('/opcion2')
+def opcion2():
+  dato = ""
+  print(session[dato])
+  return render_template('datos.html', dato = session[dato])
+
+@app.route('/opcion3')
+def opcion3():
+  dato = ""
+  print(session[dato])
+  return render_template('datos.html', dato = session[dato])
+
+@app.route('/opcion4')
+def opcion4():
+  dato = ""
+  print(session[dato])
+  return render_template('datos.html', dato = session[dato])
 
 @app.route('/datos')
 def datos():
@@ -209,12 +242,13 @@ def datos():
 
 @app.route('/puntaje')
 def cargarDatos():
-    conn = sqlite3.connect('tabla.db')
-    session['puntajeGlobal'] = 11
-    q = f"""UPDATE Usuarios SET usuario.puntaje = '{session['puntajeGlobal']}' WHERE usuario.nombre = '{session['usuarioGlobal']}';"""
+  conn = sqlite3.connect('tabla.db')
+  session['puntajeGlobal'] = 11
+  q = f"""UPDATE Usuarios SET usuario.puntaje = '{session['puntajeGlobal']}' WHERE usuario.nombre = '{session['usuarioGlobal']}';"""
 
-    conn.execute(q)
-    conn.commit()
+  conn.execute(q)
+  conn.commit()
+  conn.close()
 
 
 '''

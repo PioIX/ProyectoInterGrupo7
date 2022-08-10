@@ -13,28 +13,28 @@
         <section id="screen1">
         <div>
             <div class="rectangulo" >
-                <p>pregunta</p>
+                <p>{{pregunta}}</p>
             
             </div>
             <div class="respuesta">
-                <a href="datos.html">
+                <a href="{{ url_for('opcion1') }}">
                     <div class="primeraOpcion" >
-                        <p>primera opcion</p>
+                        <p>{{opcion1}}</p>
                     </div>    
                 </a>
-                <a href="datos.html">
+                <a href="{{ url_for('opcion2') }}">
                     <div class="segundaOpcion" >
-                        <p>segunda opcion</p>
+                        <p>{{opcion2}}</p>
                     </div>    
                 </a>
-                <a href="datos.html">
+                <a href="{{ url_for('opcion3') }}">
                     <div class="terceraOpcion" >
-                        <p>tercera opcion</p>
+                        <p>{{opcion3}}</p>
                     </div>    
                 </a>
-                <a href="datos.html">
+                <a href="{{ url_for('opcion4') }}">
                     <div class="cuartaOpcion" >
-                        <p>cuarta opcion</p>
+                        <p>{{opcion4}}</p>
                     </div>    
                 </a>
             </div>
@@ -46,13 +46,15 @@
                 
                 <tr>
                     <td width="%33" aling="center">
-                        <a href={{ url_for('ret_involucrados')}} class="active nav__link"><img src="{{ url_for('static', filename='img/Inicio.png') }}" alt="" class="imagen.Inicio"></a>
+                        <a href="{{ url_for('index') }}" class="nav__link"><img src="{{ url_for('static', filename='img/Inicio.png') }}" alt="" class="imagen.Inicio"></a> 
                     </td>
-                    <td width="%33" aling="center">                
-                        <a href={{ url_for('ret_reglas') }} class="nav__link"><img src="{{ url_for('static', filename='img/Reglas.png') }}" alt="" class="imagen.Reglas"></a>
+                    <td width="%33" aling="center">                                
+                       <a href="{{ url_for('reglas') }}" class="nav__link"><img src="{{ url_for('static', filename='img/Reglas.png') }}" alt="" class="imagen.Reglas"></a> 
+                      
                     </td>
-                    <td width="%33" aling="center">            
-                        <a href={{ url_for('ret_nosotras') }} class="nav__link"><img src="{{ url_for('static', filename='img/Nosotras.png') }}" alt="" class="imagen.Nosotras"></a>
+                    <td width="%33" aling="center"> 
+                       
+                      <a href="{{ url_for('nosotras') }}" class="nav__link"><img src="{{ url_for('static', filename='img/Nosotras.png') }}" alt="" class="imagen.Nosotras"></a>
                     </td>
 
                 </tr>

@@ -5,60 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Involucrados</title>
-    <link rel="stylesheet"  href="{{ url_for('static', filename='tematica.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='tematica.css') }}">
 </head>
 <body>
-  <div class="container">
-    <section id="screen1">
-    <div class="rectangulo">
-      <div class="dificultades">
-        <h2>TEMATICA DESIGUALDADES</h2>
-        <hr color= "#E84BC7" size=2 width="1185px">
-      </div>
-      <div class = "cont">  
-        <main class="form-signin">
-          <form method="GET" action="/tematica1" id="formulario1">
-            <div class="genero" id="estilos-botones">
-              <input type="submit" class="w-100 btn btn-lg btn-success mt-2" value="GENERO"/>
+    <div class="container">
+
+        <section id="screen1">
+        
+        <div class="rectangulo">
+            <div calss="tematicas">
+                <h2>TEMATICA DESIGUALDADES</h2>
+                <hr color= "#E84BC7" size=2 width="1185px">
             </div>
-          </form>
-        </main>
-        <main class="form-signin">
-          <form method="GET" action="/tematica2" id="formulario1">
-            <div class="etnia" id="estilos-botones">
-              <input type="submit" class="w-100 btn btn-lg btn-success mt-2" value="ETNIA"/>
+            <div class = "cont">
+                <div class="genero" id="estilos-botones">
+                    <a href="{{ url_for('tematica1') }}"> 
+                        <input type="button" class="genero" value="GENERO">
+                    </a>
+                </div>
+                <div class="etnia" id="estilos-botones"> 
+                    <a href="{{ url_for('tematica2') }}"> 
+                        <input type="button" class="etnia" value="ETNIA">
+                    </a> 
+                </div>
+                <div class="educación" id="estilos-botones">
+                    <a href="{{ url_for('tematica3') }}"> 
+                        <input type="button" class="educacion" value="EDUCACION">
+                    </a>
+                </div>
             </div>
-          </form>
-        </main>  
-        <main class="form-signin">
-          <form method="GET" action="/tematica3" id="formulario1">
-            <div class="educación" id="estilos-botones">
-              <input type="submit" class="w-100 btn btn-lg btn-success mt-2" value="EDUCACION"/>
-            </div>
-          </form>
-        </main>
-      </div>
-    </div>
-  </div>
+        </div>
     
     </div>
-   <footer>
+    <footer>
         <div class="navbar">
             <table  width="100%">
-              
                 <tr>
                     <td width="%33" aling="center">
-                        <a href={{ url_for('ret_involucrados')}} class="active nav__link"><img src="{{ url_for('static', filename='img/Inicio.png') }}" alt="" class="imagen.Inicio"></a>
+                        
+                      <a href="{{ url_for('index') }}" class="active nav__link"><img src="{{ url_for('static', filename='img/Inicio.png') }}" alt="" class="imagen.Inicio"></a>
                     </td>
-                    <td width="%33" aling="center">                
-                        <a href={{ url_for('ret_reglas') }} class="nav__link"><img src="{{ url_for('static', filename='img/Reglas.png') }}" alt="" class="imagen.Reglas"></a>
+                    <td width="%33" aling="center">                                
+                       <a href="{{ url_for('reglas') }}" class="nav__link"><img src="{{ url_for('static', filename='img/Reglas.png') }}" alt="" class="imagen.Reglas"></a> 
+                      
                     </td>
-                    <td width="%33" aling="center">            
-                        <a href={{ url_for('ret_nosotras') }} class="nav__link"><img src="{{ url_for('static', filename='img/Nosotras.png') }}" alt="" class="imagen.Nosotras"></a>
+                    <td width="%33" aling="center"> 
+                       
+                      <a href="{{ url_for('nosotras') }}" class="nav__link"><img src="{{ url_for('static', filename='img/Nosotras.png') }}" alt="" class="imagen.Nosotras"></a>
                     </td>
-
                 </tr>
-             
             </table>            
         </div>
     </footer>

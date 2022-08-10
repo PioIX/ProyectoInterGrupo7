@@ -9,14 +9,14 @@
 </head>
 <body>
     <main class="form-signin">
-        <form methond="POST" action="/signin" id="formulario1">
+        <form method="POST" action="/signin" id="formulario1">
             <div class="container">
                 <section id="screen1">
                 <div>
                     <h1>Involucrados</h1>
                     <div class="rectangulo">
-                        <input name="usuario" type="text" placeholder="Nombre"  class="form-control" id="usuario">  </input>
-                        <button type="submit" class="boton play"  href="niveles.html"> JUGAR </button>
+                        <input required name="usuario" type="text" placeholder="Nombre"  class="form-control" id="usuario">  </input>
+                        <button type="submit" class="boton play"  href="{{ url_for('niveles') }}"> JUGAR </button>
                     </div>
                 </div>
             </div>
@@ -29,14 +29,15 @@
                 <tr>
                     <td width="%33" aling="center">
                         
-                      <a href="involucrados.html" class="active nav__link"><img src="{{ url_for('static', filename='img/Inicio.png') }}" alt="" class="imagen.Inicio"></a>
+                      <a href="" class="active nav__link"><img src="{{ url_for('static', filename='img/Inicio.png') }}" alt="" class="imagen.Inicio"></a>
                     </td>
                     <td width="%33" aling="center">                                
-                       <a href="reglas.html" class="nav__link"><img src="{{ url_for('static', filename='img/Reglas.png') }}" alt="" class="imagen.Reglas"></a> 
+                       <a href="{{ url_for('reglas') }}" class="nav__link"><img src="{{ url_for('static', filename='img/Reglas.png') }}" alt="" class="imagen.Reglas"></a> 
+                      
                     </td>
                     <td width="%33" aling="center"> 
                        
-                      <a href="nosotras.html" class="nav__link"><img src="{{ url_for('static', filename='img/Nosotras.png') }}" alt="" class="imagen.Nosotras"></a>
+                      <a href="{{ url_for('nosotras') }}" class="nav__link"><img src="{{ url_for('static', filename='img/Nosotras.png') }}" alt="" class="imagen.Nosotras"></a>
                     </td>
                 </tr>
             </table>            

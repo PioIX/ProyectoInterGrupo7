@@ -1,0 +1,75 @@
+@import URL('https://fonts.cdnfonts.com/css/arcade-classic');
+@import URL('https://fonts.cdnfonts.com/css/magz');
+@import url('https://fonts.cdnfonts.com/css/bungee-inline'); /*'Bungee Inline'*/
+
+*{
+    margin:0 auto;
+    box-sizing:border-box;
+    font-family: 'DM Sans', sans-serif;
+}
+section{
+    width:100%;
+    height:92.3vh;
+    padding:15px;
+    margin:0;
+    background-image: url('img/Fondo.jpg');
+    color: #dcdde1;
+    display:none;
+    justify-content:center;
+    align-items: center;
+    text-align:center;
+}
+h2{
+    font-family: 'ArcadeClassic';
+    font-size: 200%;
+    color: #E84BC7;
+    margin-top:30px;
+    
+}
+h1{
+    font-family: 'Bungee Inline';
+    font-size: 200%;
+    color: #E84BC7;
+    margin-top:30px;
+    text-shadow: 2.5px 2.5px #00ffea;
+}
+#screen1{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.rectangulo1 {
+    width: 1000px; 
+    height: 100px; 
+    background: #BDE2F1;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+.rectangulo2 {
+    width: 1000px; 
+    height: 500px; 
+    background: #BDE2F1;
+    border-radius: 15px;
+    margin-bottom: -40px;
+}
+p{
+    text-align:center;
+    padding:20px;
+}
+img {
+    height: 30px;
+}
+.navbar{
+    text-align: center;
+    background-color: #065A82;
+    width: 100%;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+.navbar:hover{
+  color:#38ABD9;
+}

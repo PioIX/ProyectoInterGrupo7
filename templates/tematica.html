@@ -19,17 +19,18 @@
             </div>
             <div class = "cont">
                 <div class="genero" id="estilos-botones">
-                    <a href="{{ url_for('tematica1') }}"> 
+                    <a href="{{ url_for('tematica', tema='genero') }}"> 
                         <input type="button" class="genero" value="GENERO">
                     </a>
                 </div>
                 <div class="etnia" id="estilos-botones"> 
-                    <a href="{{ url_for('tematica2') }}"> 
+                  <!--<a href="tematica/2"> -->  
+                  <a href="{{ url_for('tematica', tema='etnia') }}"> 
                         <input type="button" class="etnia" value="ETNIA">
                     </a> 
                 </div>
                 <div class="educación" id="estilos-botones">
-                    <a href="{{ url_for('tematica3') }}"> 
+                    <a href="{{ url_for('tematica', tema='eduacion') }}"> 
                         <input type="button" class="educacion" value="EDUCACION">
                     </a>
                 </div>

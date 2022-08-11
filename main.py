@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
 from flask_cors import CORS
 from flask import session
@@ -11,6 +11,8 @@ app.secret_key = 'esto-es-una-clave-muy-secreta'
 tematica = ""
 dificultad = 0
 id = 0
+preguntaActual = 0
+puntos = 0
 
 
 class Persona:
@@ -56,6 +58,7 @@ def niveles():
 @app.route('/signin', methods=['POST', 'GET'])
 def signin():
     msg = None
+    session['puntos'] = 0
     conn = sqlite3.connect('tabla.db')
     if (request.method == "POST"):
         if (request.form["usuario"] != ""):
@@ -85,7 +88,7 @@ def signin():
             msg = "Chau"
     return render_template('niveles.html', nombre=msg)
 
-
+"""
 @app.route('/nivel1')
 def nivel1():
     session['dificultad'] = 1
@@ -98,17 +101,15 @@ def nivel2():
     session['dificultad'] = 2
     pregu.dificultad = dificultad
     return render_template('tematica.html')
+"""
 
 @app.route('/tematica1')
 def tematica1():
-    try:
-        session['preguntaActual'] += 1
-    except:
-        session['preguntaActual'] = 0
     tema = "genero"
     pregu.tema = tema
     conn = sqlite3.connect('tabla.db')
     q = f"""SELECT contenido, id_pregunta, dato FROM Preguntas WHERE  dificultad == {session['dificultad']} and tema == '{pregu.tema}' """
+
     resu = conn.execute(q)
     lista = resu.fetchall()
     dato = ""
@@ -132,30 +133,50 @@ def tematica1():
 
 
 
-@app.route('/tematica2')
-def tematica2():
-    try:
-        session['preguntaActual'] += 1
-    except:
-        session['preguntaActual'] = 0
-    tema = "etnia"
+@app.route('/nivel/<num_nivel>')
+def nivel(num_nivel):
+    session['dificultad'] = int(num_nivel)
+    session['preguntaActual'] = 0
+    pregu.dificultad = dificultad
+    return render_template('tematica.html')
+
+@app.route('/tematica/<tema>')
+def tematica(tema):
     pregu.tema = tema
     conn = sqlite3.connect('tabla.db')
-    q = f"""SELECT contenido, id_pregunta, dato FROM Preguntas WHERE  dificultad == {session['dificultad']} and tema == '{pregu.tema}' """
+    q = f"""SELECT contenido, id_pregunta, dato FROM Preguntas WHERE  dificultad == {session['dificultad']} and tema == '{pregu.tema}' """   
+    print(q)
     resu = conn.execute(q)
     lista = resu.fetchall()
+    print(lista)
     dato = ""
     session[dato] = lista[0][2]
-    pregunta = lista[0]
-    q = f"""SELECT contenido FROM Respuestas WHERE id_pregunta = {lista[0][1]} """
+    num_pregunta = int(session['preguntaActual'])
+    if num_pregunta < 5:  
+      pregunta = lista[num_pregunta]
+      session['preguntaActual'] = num_pregunta + 1  
+      
+    #session[preguntaActual] = preguntaActual
+    #session[preguntaActual] =+ 1       
+    #pregunta = lista[0]
+    #q = f"""SELECT contenido FROM Respuestas WHERE id_pregunta = {lista[0][1]} """
+    q = f"""SELECT contenido, correcta FROM Respuestas WHERE id_pregunta = {lista[num_pregunta][1]} """
     resu = conn.execute(q)
+    resu = conn.execute(q) 
     lista_r = resu.fetchall()
+    print(lista_r)
     opcion1 = lista_r[0]
+    session['opcion1'] = opcion1[1]
     opcion2 = lista_r[1]
+    session['opcion2'] = opcion2[1]
     opcion3 = lista_r[2]
+    session['opcion3'] = opcion3[1]
     opcion4 = lista_r[3]
+    session['opcion4'] = opcion4[1]
     conn.commit()
     conn.close()
+    print("aca")
+    
     return render_template('pregunta.html',
                            pregunta=pregunta[0],
                            opcion1=opcion1[0],
@@ -167,10 +188,6 @@ def tematica2():
 
 @app.route('/tematica3')
 def tematica3():
-    try:
-        session['preguntaActual'] += 1
-    except:
-        session['preguntaActual'] = 0
     tema = "educacion"
     pregu.tema = tema
     conn = sqlite3.connect('tabla.db')
@@ -199,6 +216,8 @@ def tematica3():
 
 
 
+
+
 @app.route('/pregunta')
 def pregunta():
     return render_template('pregunta.html')
@@ -213,27 +232,44 @@ def opcion1():
   conn.close()
   '''
   dato = ""
+  print("HOLAAAAAAAAAAAAAAAAAAAAAAAAA")
   print(session[dato])
-  return render_template('datos.html', dato = session[dato])
-  return render_template('datos.html')
+  print(session['puntos'])
+  if session['opcion1'] == True:
+    session['puntos'] =+ 1
+    print(session['puntos'])
+  return redirect(url_for('tematica', tema='etnia'))
+  #return render_template('datos.html', dato = session[dato])
+  
+  #return render_template('datos.html', dato = session[dato])
+
 
 @app.route('/opcion2')
 def opcion2():
   dato = ""
   print(session[dato])
-  return render_template('datos.html', dato = session[dato])
+  if session['opcion2'] == True:
+    session['puntos'] =+ 1
+    print(session['puntos'])
+  return redirect(url_for('tematica', tema='etnia'))
 
 @app.route('/opcion3')
 def opcion3():
   dato = ""
   print(session[dato])
-  return render_template('datos.html', dato = session[dato])
+  if session['opcion3'] == True:
+    session['puntos'] =+ 1
+    print(session['puntos'])
+  return redirect(url_for('tematica', tema='etnia'))
 
 @app.route('/opcion4')
 def opcion4():
   dato = ""
   print(session[dato])
-  return render_template('datos.html', dato = session[dato])
+  if session['opcion4'] == True:
+    session['puntos'] =+ 1
+    print(session['puntos'])
+  return redirect(url_for('tematica', tema='etnia'))
 
 @app.route('/datos')
 def datos():

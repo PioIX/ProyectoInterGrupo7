@@ -62,7 +62,7 @@ h2{
     margin: 1em;
     padding: 1em;
 }
-.peraOpcion{
+.primeraOpcion{
   background: #226079;
   font-family: 'Press Start 2P';
   text-align: center;
@@ -115,6 +115,7 @@ h2{
     padding-left: 2%;
     padding-right: 2%;
     padding-top: 1%;
+    line-height: 150%;
 
     
   }

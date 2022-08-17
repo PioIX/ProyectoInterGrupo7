@@ -17,8 +17,9 @@
               <p>{{dato}}</p>
             </div>
             <div CLASS="puntaje" id= "resultado">
-                <h2>¡CORRECTO!</h2>
-                <a href="{{ url_for('pregunta') }}" type="button" class="botonFlecha">
+                <h2>{{respuesta}}</h2>
+                <!-- <a href="{{ url_for('ranking')}}" type="button" class="botonFlecha"> -->
+                 <a href="{{ url_for('tematica', tema = session['tema']) }}" type="button" class="botonFlecha"> 
                     <img src="{{ url_for('static', filename='img/Flecha.png') }}" alt="" class="flecha">
                 </a> 
             </div>

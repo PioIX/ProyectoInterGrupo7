@@ -250,7 +250,7 @@ def datos():
 def ranking():
   conn = sqlite3.connect('tabla.db')
   session['puntosGlobal'] = 11
-  q = f"""UPDATE Usuarios SET usuario.puntaje = '{session['puntosGlobal']}' WHERE usuario.nombre = '{session['usuarioGlobal']}';"""
+  q = f"""UPDATE Usuarios SET usuario.puntaje = {session['puntosGlobal']} WHERE usuario.nombre = {session['usuarioGlobal']} """
   conn.execute(q)
   conn.commit()
   conn.close()

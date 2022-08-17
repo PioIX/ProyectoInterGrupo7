@@ -149,6 +149,8 @@ def tematica(tema):
         session['datoActual'] = num_dato + 1 
         pregunta = lista[num_pregunta]
         session['preguntaActual'] = num_pregunta + 1 
+      else:
+        return redirect(url_for('ranking'))
     else:
       if num_pregunta < 10:  
         dato = lista[num_dato][2]
@@ -156,6 +158,8 @@ def tematica(tema):
         session['datoActual'] = num_dato + 1 
         pregunta = lista[num_pregunta]
         session['preguntaActual'] = num_pregunta + 1 
+      else:
+        return redirect(url_for('ranking'))
        
     q = f"""SELECT contenido, correcta FROM Respuestas WHERE id_pregunta = {lista[num_pregunta][1]} """
     resu = conn.execute(q)
@@ -245,13 +249,12 @@ def datos():
 @app.route('/puntaje')
 def ranking():
   conn = sqlite3.connect('tabla.db')
-  session['puntajeGlobal'] = 11
-  q = f"""UPDATE Usuarios SET usuario.puntaje = '{session['puntos']}' WHERE usuario.nombre = '{session['usuarioGlobal']}';"""
+  session['puntosGlobal'] = 11
+  q = f"""UPDATE Usuarios SET usuario.puntaje = '{session['puntosGlobal']}' WHERE usuario.nombre = '{session['usuarioGlobal']}';"""
   conn.execute(q)
   conn.commit()
   conn.close()
-  return render_template('ranking.html', puntaje = session['puntos'])
-
+  return render_template('ranking.html', puntaje = session['puntosGlobal'])
 
 
 app.run(host='0.0.0.0', port=81)

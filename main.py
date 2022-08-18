@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
+import time
 from flask_cors import CORS
 from flask import session
 
@@ -99,7 +100,8 @@ def tematica(tema):
     q = f"""SELECT contenido, id_pregunta, dato FROM Preguntas WHERE  dificultad == {session['dificultad']} and tema == '{pregu.tema}' """   
     resu = conn.execute(q)
     lista = resu.fetchall()
-  
+    start = time.time()
+    session['tiempoInicio'] = start
     num_dato = int(session['datoActual'])
     num_pregunta = int(session['preguntaActual'])
     if session['dificultad'] == 1:
@@ -194,14 +196,17 @@ def datos():
 
 @app.route('/puntaje')
 def ranking():
+  end = time.time()
+  session['tiempoFinal'] = end
+  tiempo = format(session['tiempoFinal']-session['tiempoInicio'])
   conn = sqlite3.connect('tabla.db')
-  nombre = session['usuarioGlobal']
   q = f"""UPDATE Usuarios SET puntaje = '{session['puntos']}' WHERE nombre = '{session['usuarioGlobal']}' """
   conn.execute(q)
   conn.commit()
   conn.close() 
   return render_template('ranking.html', 
                          puntaje = session['puntos'], 
-                         nombre = nombre)
+                         nombre = session['usuarioGlobal'], 
+                         tiempo = tiempo)
 
 app.run(host='0.0.0.0', port=81)

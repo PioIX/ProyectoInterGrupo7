@@ -62,7 +62,6 @@ def signin():
     conn = sqlite3.connect('tabla.db')
     if (request.method == "POST"):
         if (request.form["usuario"] != ""):
-            
             nombre = request.form['usuario']
             usuario = Persona(nombre)
             session['usuarioGlobal'] = usuario.nombre
@@ -70,10 +69,10 @@ def signin():
             #ES PARA VER SI YA EXISTE ESE NOMBRE
             q = f"""SELECT nombre FROM Usuarios WHERE nombre = '{usuario.nombre}'"""
             resu = conn.execute(q)
-            #probar si funciona ver si ya existe el nombre
 
             if resu.fetchone():
-                print("ya existe")
+                mensaje = '¡ESE USUARIO YA EXISTE!'
+                return render_template('index.html', mensaje = mensaje)
             else:
                 r = f"""INSERT INTO Usuarios (nombre, tiempo, puntaje)
                   VALUES ('{usuario.nombre}','0',0);"""
@@ -86,41 +85,9 @@ def signin():
             msg = "Hola"
         else:
             msg = "Chau"
+    session['usuarioGlobal'] = usuario.nombre
+    print(session['usuarioGlobal'])
     return render_template('niveles.html', nombre=msg)
-
-
-
-#ELIMINAR ESTE CODIGO
-@app.route('/tematica1')
-def tematica1():
-    tema = "genero"
-    pregu.tema = tema
-    conn = sqlite3.connect('tabla.db')
-    q = f"""SELECT contenido, id_pregunta, dato FROM Preguntas WHERE  dificultad == {session['dificultad']} and tema == '{pregu.tema}' """
-
-    resu = conn.execute(q)
-    lista = resu.fetchall()
-    dato = ""
-    session[dato] = lista[0][2]
-    pregunta = lista[0]
-    q = f"""SELECT contenido, correcta, id_respuesta FROM Respuestas WHERE id_pregunta = {lista[0][1]} """
-    resu = conn.execute(q)
-    lista_r = resu.fetchall()
-    opcion1 = lista_r[0]
-    opcion2 = lista_r[1]
-    opcion3 = lista_r[2]
-    opcion4 = lista_r[3]
-    conn.commit()
-    conn.close()
-    return render_template('pregunta.html',
-                           pregunta=pregunta[0],
-                           opcion1=opcion1[0],
-                           opcion2=opcion2[0],
-                           opcion3=opcion3[0],
-                           opcion4=opcion4[0])
-
-
-
 
 
 @app.route('/nivel/<num_nivel>')
@@ -149,6 +116,8 @@ def tematica(tema):
         session['datoActual'] = num_dato + 1 
         pregunta = lista[num_pregunta]
         session['preguntaActual'] = num_pregunta + 1 
+      else:
+        return redirect(url_for('ranking'))
     else:
       if num_pregunta < 10:  
         dato = lista[num_dato][2]
@@ -156,6 +125,8 @@ def tematica(tema):
         session['datoActual'] = num_dato + 1 
         pregunta = lista[num_pregunta]
         session['preguntaActual'] = num_pregunta + 1 
+      else:
+        return redirect(url_for('ranking'))
        
     q = f"""SELECT contenido, correcta FROM Respuestas WHERE id_pregunta = {lista[num_pregunta][1]} """
     resu = conn.execute(q)
@@ -170,13 +141,6 @@ def tematica(tema):
     session['opcion4'] = opcion4[1]
     conn.commit()
     conn.close()
-  
-    print(session['puntos'])
-    print(session['opcion1'])
-    print(session['opcion2'] )
-    print(session['opcion3'] )
-    print(session['opcion4'] )
-    print(pregunta[0] )
     
     return render_template('pregunta.html',
                            pregunta=pregunta[0],
@@ -199,7 +163,6 @@ def opcion1():
     session['respuesta'] = "¡CORRECTO!"
   else:
     session['respuesta'] = "¡INCORRECTO!"
-  print(session['puntos'])
   return redirect(url_for('datos'))
 
 
@@ -211,7 +174,6 @@ def opcion2():
     session['respuesta'] = "¡CORRECTO!"
   else:
     session['respuesta'] = "¡INCORRECTO!"
-  print(session['puntos'])
   return redirect(url_for('datos'))
 
 @app.route('/opcion3')
@@ -222,7 +184,6 @@ def opcion3():
     session['respuesta'] = "¡CORRECTO!"
   else:
     session['respuesta'] = "¡INCORRECTO!"
-  print(session['puntos'])
   return redirect(url_for('datos'))
 
 @app.route('/opcion4')
@@ -233,7 +194,6 @@ def opcion4():
     session['respuesta'] = "¡CORRECTO!"
   else:
     session['respuesta'] = "¡INCORRECTO!"
-  print(session['puntos'])
   return redirect(url_for('datos'))
 
 @app.route('/datos')
@@ -241,17 +201,21 @@ def datos():
     return render_template('datos.html', dato = session['dato'], 
                                         respuesta = session['respuesta'])
 
+@app.route('/prueba')
+def prueba():
+  return render_template('prueba.html', puntaje = session['puntos'], usuario = session['usuarioGlobal'])
 
 @app.route('/puntaje')
 def ranking():
   conn = sqlite3.connect('tabla.db')
-  session['puntajeGlobal'] = 11
-  q = f"""UPDATE Usuarios SET usuario.puntaje = '{session['puntos']}' WHERE usuario.nombre = '{session['usuarioGlobal']}';"""
+  nombre = session['usuarioGlobal']
+  q = f"""UPDATE Usuarios SET puntaje = '{session['puntos']}' WHERE nombre = '{session['usuarioGlobal']}' """
+  print(q)
   conn.execute(q)
   conn.commit()
-  conn.close()
-  return render_template('ranking.html', puntaje = session['puntos'])
-
-
+  conn.close() 
+  return render_template('ranking.html', 
+                         puntaje = session['puntos'], 
+                         nombre = nombre)
 
 app.run(host='0.0.0.0', port=81)

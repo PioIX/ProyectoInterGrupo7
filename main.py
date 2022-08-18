@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
 from flask_cors import CORS
 from flask import session
@@ -62,7 +62,6 @@ def signin():
     conn = sqlite3.connect('tabla.db')
     if (request.method == "POST"):
         if (request.form["usuario"] != ""):
-            
             nombre = request.form['usuario']
             usuario = Persona(nombre)
             session['usuarioGlobal'] = usuario.nombre
@@ -70,11 +69,9 @@ def signin():
             #ES PARA VER SI YA EXISTE ESE NOMBRE
             q = f"""SELECT nombre FROM Usuarios WHERE nombre = '{usuario.nombre}'"""
             resu = conn.execute(q)
-            #probar si funciona ver si ya existe el nombre
 
             if resu.fetchone():
-                print("ya existe")
-                mensaje = 'Ese usuario ya existe'
+                mensaje = '¡ESE USUARIO YA EXISTE!'
                 return render_template('index.html', mensaje = mensaje)
             else:
                 r = f"""INSERT INTO Usuarios (nombre, tiempo, puntaje)
@@ -88,11 +85,9 @@ def signin():
             msg = "Hola"
         else:
             msg = "Chau"
+    session['usuarioGlobal'] = usuario.nombre
+    print(session['usuarioGlobal'])
     return render_template('niveles.html', nombre=msg)
-
-
-
-#ELIMINAR ESTE CODIGO
 
 
 @app.route('/nivel/<num_nivel>')
@@ -122,7 +117,7 @@ def tematica(tema):
         pregunta = lista[num_pregunta]
         session['preguntaActual'] = num_pregunta + 1 
       else:
-        return redirect(url_for('prueba'))
+        return redirect(url_for('ranking'))
     else:
       if num_pregunta < 10:  
         dato = lista[num_dato][2]
@@ -131,7 +126,7 @@ def tematica(tema):
         pregunta = lista[num_pregunta]
         session['preguntaActual'] = num_pregunta + 1 
       else:
-        return redirect(url_for('prueba'))
+        return redirect(url_for('ranking'))
        
     q = f"""SELECT contenido, correcta FROM Respuestas WHERE id_pregunta = {lista[num_pregunta][1]} """
     resu = conn.execute(q)
@@ -146,13 +141,6 @@ def tematica(tema):
     session['opcion4'] = opcion4[1]
     conn.commit()
     conn.close()
-  
-    print(session['puntos'])
-    print(session['opcion1'])
-    print(session['opcion2'] )
-    print(session['opcion3'] )
-    print(session['opcion4'] )
-    print(pregunta[0] )
     
     return render_template('pregunta.html',
                            pregunta=pregunta[0],
@@ -175,7 +163,6 @@ def opcion1():
     session['respuesta'] = "¡CORRECTO!"
   else:
     session['respuesta'] = "¡INCORRECTO!"
-  print(session['puntos'])
   return redirect(url_for('datos'))
 
 
@@ -187,7 +174,6 @@ def opcion2():
     session['respuesta'] = "¡CORRECTO!"
   else:
     session['respuesta'] = "¡INCORRECTO!"
-  print(session['puntos'])
   return redirect(url_for('datos'))
 
 @app.route('/opcion3')
@@ -198,7 +184,6 @@ def opcion3():
     session['respuesta'] = "¡CORRECTO!"
   else:
     session['respuesta'] = "¡INCORRECTO!"
-  print(session['puntos'])
   return redirect(url_for('datos'))
 
 @app.route('/opcion4')
@@ -209,7 +194,6 @@ def opcion4():
     session['respuesta'] = "¡CORRECTO!"
   else:
     session['respuesta'] = "¡INCORRECTO!"
-  print(session['puntos'])
   return redirect(url_for('datos'))
 
 @app.route('/datos')
@@ -217,31 +201,21 @@ def datos():
     return render_template('datos.html', dato = session['dato'], 
                                         respuesta = session['respuesta'])
 
-
-
 @app.route('/prueba')
 def prueba():
-  return render_template('prueba.html', puntaje = session['puntos'], usuario = session['usuarioGoblal'])
+  return render_template('prueba.html', puntaje = session['puntos'], usuario = session['usuarioGlobal'])
 
 @app.route('/puntaje')
 def ranking():
-  #es necesario poner "usuario.puntaje = " o directo "puntaje =    "   ????
-  '''
   conn = sqlite3.connect('tabla.db')
-  session['puntosGlobal'] = 11
-  q = f"""UPDATE Usuarios SET puntaje = {session['puntosGlobal']} WHERE nombre = {session['usuarioGlobal']} """
-  conn.execute(q)
-  conn.commit()
-  conn.close()
-  '''
-  conn = sqlite3.connect('tabla.db')
-  session['puntosGlobal'] = 19
-  q = f"""UPDATE Usuarios SET puntaje = {session['puntosGlobal']} WHERE nombre = 'mel' """
-  #funciona q, pero cuando ponemos el nombre desde el session, no se guarda en la base de datos.
+  nombre = session['usuarioGlobal']
+  q = f"""UPDATE Usuarios SET puntaje = '{session['puntos']}' WHERE nombre = '{session['usuarioGlobal']}' """
   print(q)
   conn.execute(q)
   conn.commit()
-  conn.close()
-  return render_template('ranking.html', puntaje=100000)
+  conn.close() 
+  return render_template('ranking.html', 
+                         puntaje = session['puntos'], 
+                         nombre = nombre)
 
 app.run(host='0.0.0.0', port=81)

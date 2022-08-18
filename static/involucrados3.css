@@ -32,15 +32,16 @@
   }
   
   .rectangulo {
-    width: 500px; 
-    height: 300px; 
+    width: 520px; 
+    height: 265px; 
     background: #065A82;
     border-radius: 15px;
 }
 
   .mensaje{
     width: 500px; 
-    height: 50px; 
+    height: 20px; 
+    padding-top:0px;
 }
   p{
     text-align:center;

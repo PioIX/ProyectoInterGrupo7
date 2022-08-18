@@ -15,7 +15,9 @@
                 <div>
                     <h1>Involucrados</h1>
                     <div class="rectangulo">
-                      <p class="mensaje">{{mensaje}}</p>
+                      <div class="mensaje">
+                        <p>{{mensaje}}</p>
+                      </div>
                         <input required name="usuario" type="text" placeholder="Nombre"  class="form-control" id="usuario">  </input>
                         <button type="submit" class="boton play"  href="{{ url_for('niveles') }}"> JUGAR </button>
                     </div>

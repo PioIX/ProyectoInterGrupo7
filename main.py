@@ -78,7 +78,6 @@ def signin():
                   VALUES ('{usuario.nombre}','0',0);"""
                 conn.execute(r)
                 conn.commit()
-                print(r)
             conn.close()
     else:
         if (request.method == "GET"):
@@ -86,7 +85,6 @@ def signin():
         else:
             msg = "Chau"
     session['usuarioGlobal'] = usuario.nombre
-    print(session['usuarioGlobal'])
     return render_template('niveles.html', nombre=msg)
 
 
@@ -157,7 +155,6 @@ def pregunta():
 
 @app.route('/opcion1')
 def opcion1():
-  print(session['opcion1'])
   if session['opcion1'] == 'True':
     session['puntos'] = session['puntos'] + 1
     session['respuesta'] = "¡CORRECTO!"
@@ -168,7 +165,6 @@ def opcion1():
 
 @app.route('/opcion2')
 def opcion2():
-  print(session['opcion2'])
   if session['opcion2'] == 'True':
     session['puntos'] = session['puntos'] + 1
     session['respuesta'] = "¡CORRECTO!"
@@ -178,7 +174,6 @@ def opcion2():
 
 @app.route('/opcion3')
 def opcion3():
-  print(session['opcion3'])
   if session['opcion3'] == 'True':
     session['puntos'] = session['puntos'] + 1
     session['respuesta'] = "¡CORRECTO!"
@@ -188,7 +183,6 @@ def opcion3():
 
 @app.route('/opcion4')
 def opcion4():
-  print(session['opcion4'])
   if session['opcion4'] == 'True':
     session['puntos'] = session['puntos'] + 1
     session['respuesta'] = "¡CORRECTO!"
@@ -201,16 +195,11 @@ def datos():
     return render_template('datos.html', dato = session['dato'], 
                                         respuesta = session['respuesta'])
 
-@app.route('/prueba')
-def prueba():
-  return render_template('prueba.html', puntaje = session['puntos'], usuario = session['usuarioGlobal'])
-
 @app.route('/puntaje')
 def ranking():
   conn = sqlite3.connect('tabla.db')
   nombre = session['usuarioGlobal']
   q = f"""UPDATE Usuarios SET puntaje = '{session['puntos']}' WHERE nombre = '{session['usuarioGlobal']}' """
-  print(q)
   conn.execute(q)
   conn.commit()
   conn.close() 

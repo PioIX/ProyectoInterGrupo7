@@ -208,12 +208,9 @@ def ranking():
   con_dos_decimales = round(tiempo, 2)
   
   listaOrdenada = top5.sort()
-  top1 = listaOrdenada[0]
-  top2 = listaOrdenada[1]
-  top3 = listaOrdenada[2]
-  top4 = listaOrdenada[3]
-  top5 = listaOrdenada[4]
-    
+  if (row:= cursor.fetchone()) is not None:
+    top1 = listaOrdenada[0]
+  
   conn = sqlite3.connect('tabla.db')
   q = f"""UPDATE Usuarios SET puntaje = '{session['puntos']}' WHERE nombre = '{session['usuarioGlobal']}' """
   conn.execute(q)

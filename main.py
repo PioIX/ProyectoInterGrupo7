@@ -81,6 +81,8 @@ def signin():
             msg = "Hola"
         else:
             msg = "Chau"
+    start = time.time()
+    session['tiempoInicio'] = start
     return render_template('niveles.html', nombre=msg)
 
 
@@ -100,8 +102,6 @@ def tematica(tema):
     q = f"""SELECT contenido, id_pregunta, dato FROM Preguntas WHERE  dificultad == {session['dificultad']} and tema == '{pregu.tema}' """   
     resu = conn.execute(q)
     lista = resu.fetchall()
-    start = time.time()
-    session['tiempoInicio'] = start
     num_dato = int(session['datoActual'])
     num_pregunta = int(session['preguntaActual'])
     if session['dificultad'] == 1:
@@ -196,9 +196,40 @@ def datos():
 
 @app.route('/puntaje')
 def ranking():
+  if session['puntaje1'] == 0:
+    session['puntaje1'] = 0
+  if session['puntaje2'] == 0:
+    session['puntaje2'] = 0
+  if session['puntaje3'] == 0:
+    session['puntaje3'] = 0
+  if session['puntaje4'] == 0:
+    session['puntaje4'] = 0
+  if session['puntaje5'] == 0:
+    session['puntaje5'] = 0
+  top5 = []
+  top5.append(session['puntaje1'])
+  top5.append(session['puntaje2'])
+  top5.append(session['puntaje3'])
+  top5.append(session['puntaje4'])
+  top5.append(session['puntaje5'])
+  print(top5)
+  
   end = time.time()
   session['tiempoFinal'] = end
   tiempo = format(session['tiempoFinal']-session['tiempoInicio'])
+  tiempo = float(tiempo)
+  con_dos_decimales = round(tiempo, 2)
+  
+  if session['puntos'] > top5:
+    session['puntaje5'] = session['puntaje4']
+    session['puntaje4'] = session['puntaje3']
+    session['puntaje3'] = session['puntaje2']
+    session['puntaje2'] = session['puntaje1']
+    session['puntaje1'] = session['puntos']
+    
+  #elif session['puntos'] > session['puntaje1']:
+   # no funcionaaaa
+    
   conn = sqlite3.connect('tabla.db')
   q = f"""UPDATE Usuarios SET puntaje = '{session['puntos']}' WHERE nombre = '{session['usuarioGlobal']}' """
   conn.execute(q)
@@ -207,6 +238,6 @@ def ranking():
   return render_template('ranking.html', 
                          puntaje = session['puntos'], 
                          nombre = session['usuarioGlobal'], 
-                         tiempo = tiempo)
+                         tiempo = con_dos_decimales)
 
 app.run(host='0.0.0.0', port=81)

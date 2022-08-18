@@ -86,3 +86,15 @@
 .navbar:hover{
   color:#38ABD9;
 }
+
+#graficos{
+  display: grid;
+  grid-templates-colums: repeat(6,1fr);
+  width: 80%;
+  grid-gap: 20%;
+  margin: 5%;
+}
+
+img: hover{
+transform: scale(1,15)
+}

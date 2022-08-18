@@ -15,20 +15,9 @@
                 <div>
                     <h1>Involucrados</h1>
                     <div class="rectangulo">
+                      <p class="mensaje">{{mensaje}}</p>
                         <input required name="usuario" type="text" placeholder="Nombre"  class="form-control" id="usuario">  </input>
                         <button type="submit" class="boton play"  href="{{ url_for('niveles') }}"> JUGAR </button>
-
-                      {% with messages = get_flashed_messages() %}
-                        {% if messages %}
-                          <ul class=flashes>
-                          {% for message in messages %}
-                            <li>{{ message }}</li>
-                          {% endfor %}
-                          </ul>
-                        {% endif %}
-                      {% endwith %}
-                      {% block body %}{% endblock %}
-                      
                     </div>
                 </div>
             </div>

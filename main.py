@@ -74,8 +74,8 @@ def signin():
 
             if resu.fetchone():
                 print("ya existe")
-                flash('Ese usuario ya existe')
-                return redirect(url_for('signin'))
+                mensaje = 'Ese usuario ya existe'
+                return render_template('index.html', mensaje = mensaje)
             else:
                 r = f"""INSERT INTO Usuarios (nombre, tiempo, puntaje)
                   VALUES ('{usuario.nombre}','0',0);"""
@@ -233,11 +233,10 @@ def ranking():
   conn.execute(q)
   conn.commit()
   conn.close()
-  q = f"""SELECT contenido, correcta FROM Respuestas WHERE id_pregunta = {lista[num_pregunta][1]} """
   '''
   conn = sqlite3.connect('tabla.db')
-  session['puntosGlobal'] = 11
-  q = f"""UPDATE Usuarios SET puntaje = 10 WHERE nombre = 'mel' """
+  session['puntosGlobal'] = 19
+  q = f"""UPDATE Usuarios SET puntaje = {session['puntosGlobal']} WHERE nombre = 'mel' """
   #funciona q, pero cuando ponemos el nombre desde el session, no se guarda en la base de datos.
   print(q)
   conn.execute(q)

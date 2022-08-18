@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 import sqlite3
 from flask_cors import CORS
 from flask import session
@@ -74,6 +74,8 @@ def signin():
 
             if resu.fetchone():
                 print("ya existe")
+                flash('Ese usuario ya existe')
+                return redirect(url_for('signin'))
             else:
                 r = f"""INSERT INTO Usuarios (nombre, tiempo, puntaje)
                   VALUES ('{usuario.nombre}','0',0);"""
@@ -91,36 +93,6 @@ def signin():
 
 
 #ELIMINAR ESTE CODIGO
-@app.route('/tematica1')
-def tematica1():
-    tema = "genero"
-    pregu.tema = tema
-    conn = sqlite3.connect('tabla.db')
-    q = f"""SELECT contenido, id_pregunta, dato FROM Preguntas WHERE  dificultad == {session['dificultad']} and tema == '{pregu.tema}' """
-
-    resu = conn.execute(q)
-    lista = resu.fetchall()
-    dato = ""
-    session[dato] = lista[0][2]
-    pregunta = lista[0]
-    q = f"""SELECT contenido, correcta, id_respuesta FROM Respuestas WHERE id_pregunta = {lista[0][1]} """
-    resu = conn.execute(q)
-    lista_r = resu.fetchall()
-    opcion1 = lista_r[0]
-    opcion2 = lista_r[1]
-    opcion3 = lista_r[2]
-    opcion4 = lista_r[3]
-    conn.commit()
-    conn.close()
-    return render_template('pregunta.html',
-                           pregunta=pregunta[0],
-                           opcion1=opcion1[0],
-                           opcion2=opcion2[0],
-                           opcion3=opcion3[0],
-                           opcion4=opcion4[0])
-
-
-
 
 
 @app.route('/nivel/<num_nivel>')
@@ -150,7 +122,7 @@ def tematica(tema):
         pregunta = lista[num_pregunta]
         session['preguntaActual'] = num_pregunta + 1 
       else:
-        return redirect(url_for('ranking'))
+        return redirect(url_for('prueba'))
     else:
       if num_pregunta < 10:  
         dato = lista[num_dato][2]
@@ -159,7 +131,7 @@ def tematica(tema):
         pregunta = lista[num_pregunta]
         session['preguntaActual'] = num_pregunta + 1 
       else:
-        return redirect(url_for('ranking'))
+        return redirect(url_for('prueba'))
        
     q = f"""SELECT contenido, correcta FROM Respuestas WHERE id_pregunta = {lista[num_pregunta][1]} """
     resu = conn.execute(q)
@@ -246,15 +218,31 @@ def datos():
                                         respuesta = session['respuesta'])
 
 
+
+@app.route('/prueba')
+def prueba():
+  return render_template('prueba.html', puntaje = session['puntos'], usuario = session['usuarioGoblal'])
+
 @app.route('/puntaje')
 def ranking():
+  #es necesario poner "usuario.puntaje = " o directo "puntaje =    "   ????
+  '''
   conn = sqlite3.connect('tabla.db')
   session['puntosGlobal'] = 11
-  q = f"""UPDATE Usuarios SET usuario.puntaje = {session['puntosGlobal']} WHERE usuario.nombre = {session['usuarioGlobal']} """
+  q = f"""UPDATE Usuarios SET puntaje = {session['puntosGlobal']} WHERE nombre = {session['usuarioGlobal']} """
   conn.execute(q)
   conn.commit()
   conn.close()
-  return render_template('ranking.html', puntaje = session['puntosGlobal'])
-
+  q = f"""SELECT contenido, correcta FROM Respuestas WHERE id_pregunta = {lista[num_pregunta][1]} """
+  '''
+  conn = sqlite3.connect('tabla.db')
+  session['puntosGlobal'] = 11
+  q = f"""UPDATE Usuarios SET puntaje = 10 WHERE nombre = 'mel' """
+  #funciona q, pero cuando ponemos el nombre desde el session, no se guarda en la base de datos.
+  print(q)
+  conn.execute(q)
+  conn.commit()
+  conn.close()
+  return render_template('ranking.html', puntaje=100000)
 
 app.run(host='0.0.0.0', port=81)

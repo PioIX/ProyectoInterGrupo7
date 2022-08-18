@@ -31,7 +31,6 @@ class Pregunta:
         self.dificultad = 0
         self.dato = ""
 
-
 pregu = Pregunta()
 
 
@@ -39,16 +38,13 @@ pregu = Pregunta()
 def index():
     return render_template('index.html')
 
-
 @app.route('/nosotras')
 def nosotras():
     return render_template('nosotras.html')
 
-
 @app.route('/reglas')
 def reglas():
     return render_template('reglas.html')
-
 
 @app.route('/niveles')
 def niveles():
@@ -84,7 +80,6 @@ def signin():
             msg = "Hola"
         else:
             msg = "Chau"
-    session['usuarioGlobal'] = usuario.nombre
     return render_template('niveles.html', nombre=msg)
 
 
@@ -153,6 +148,7 @@ def tematica(tema):
 def pregunta():
     return render_template('pregunta.html')
 
+
 @app.route('/opcion1')
 def opcion1():
   if session['opcion1'] == 'True':
@@ -189,6 +185,7 @@ def opcion4():
   else:
     session['respuesta'] = "¡INCORRECTO!"
   return redirect(url_for('datos'))
+
 
 @app.route('/datos')
 def datos():

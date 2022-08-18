@@ -144,12 +144,9 @@ def tematica(tema):
                            opcion3=opcion3[0],
                            opcion4=opcion4[0])
 
-
-
 @app.route('/pregunta')
 def pregunta():
     return render_template('pregunta.html')
-
 
 @app.route('/opcion1')
 def opcion1():
@@ -199,17 +196,17 @@ def ranking():
   
   top5 = []
   top5.append(session['puntos'])
-  print(top5)
   
   end = time.time()
   session['tiempoFinal'] = end
   tiempo = format(session['tiempoFinal']-session['tiempoInicio'])
   tiempo = float(tiempo)
   con_dos_decimales = round(tiempo, 2)
-  
-  listaOrdenada = top5.sort()
-  if (row:= cursor.fetchone()) is not None:
-    top1 = listaOrdenada[0]
+  top5.sort()
+  largo = len(top5)
+  ultimo = largo - 1
+  top1 = top5[ultimo]
+  top2 = top5[ultimo-1]
   
   conn = sqlite3.connect('tabla.db')
   q = f"""UPDATE Usuarios SET puntaje = '{session['puntos']}' WHERE nombre = '{session['usuarioGlobal']}' """
@@ -220,10 +217,7 @@ def ranking():
                          puntaje = session['puntos'], 
                          nombre = session['usuarioGlobal'], 
                          tiempo = con_dos_decimales, 
-                         top1 = top1,
-                         top2 = top2,
-                         top3 = top3, 
-                         top4 = top4, 
-                         top5 = top5)
+                         top1 = top1, 
+                         top2 = top2)
 
 app.run(host='0.0.0.0', port=81)

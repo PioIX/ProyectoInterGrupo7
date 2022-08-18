@@ -67,9 +67,7 @@
     padding-top: 1%;
   }
 
-  img {
-    height: 30px;
-  }
+  
   
   #screen1{
     display:flex;
@@ -87,14 +85,25 @@
   color:#38ABD9;
 }
 
-#graficos{
-  display: grid;
-  grid-templates-colums: repeat(6,1fr);
-  width: 80%;
-  grid-gap: 20%;
-  margin: 5%;
-}
+.graficos{
+    width:10%;
+    height:100px;
+    float:left;
+    margin:10px 10px 0 0;
 
-img: hover{
-transform: scale(1,15)
+}
+ img {
+    height: 30px;
+  }
+.zoom {
+    transition: transform .2s;
+    height: 160px;
+    padding-left: 2%;
+    padding-right: 2%;
+    flex-direction: row;
+    margin-top:5%;
+}
+ 
+.zoom:hover {
+    transform: scale(1.8); 
 }

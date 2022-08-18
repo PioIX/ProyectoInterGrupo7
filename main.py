@@ -144,12 +144,9 @@ def tematica(tema):
                            opcion3=opcion3[0],
                            opcion4=opcion4[0])
 
-
-
 @app.route('/pregunta')
 def pregunta():
     return render_template('pregunta.html')
-
 
 @app.route('/opcion1')
 def opcion1():
@@ -196,40 +193,21 @@ def datos():
 
 @app.route('/puntaje')
 def ranking():
-  if session['puntaje1'] == 0:
-    session['puntaje1'] = 0
-  if session['puntaje2'] == 0:
-    session['puntaje2'] = 0
-  if session['puntaje3'] == 0:
-    session['puntaje3'] = 0
-  if session['puntaje4'] == 0:
-    session['puntaje4'] = 0
-  if session['puntaje5'] == 0:
-    session['puntaje5'] = 0
+  
   top5 = []
-  top5.append(session['puntaje1'])
-  top5.append(session['puntaje2'])
-  top5.append(session['puntaje3'])
-  top5.append(session['puntaje4'])
-  top5.append(session['puntaje5'])
-  print(top5)
+  top5.append(session['puntos'])
   
   end = time.time()
   session['tiempoFinal'] = end
   tiempo = format(session['tiempoFinal']-session['tiempoInicio'])
   tiempo = float(tiempo)
   con_dos_decimales = round(tiempo, 2)
+  top5.sort()
+  largo = len(top5)
+  ultimo = largo - 1
+  top1 = top5[ultimo]
+  top2 = top5[ultimo-1]
   
-  if session['puntos'] > top5:
-    session['puntaje5'] = session['puntaje4']
-    session['puntaje4'] = session['puntaje3']
-    session['puntaje3'] = session['puntaje2']
-    session['puntaje2'] = session['puntaje1']
-    session['puntaje1'] = session['puntos']
-    
-  #elif session['puntos'] > session['puntaje1']:
-   # no funcionaaaa
-    
   conn = sqlite3.connect('tabla.db')
   q = f"""UPDATE Usuarios SET puntaje = '{session['puntos']}' WHERE nombre = '{session['usuarioGlobal']}' """
   conn.execute(q)
@@ -238,6 +216,8 @@ def ranking():
   return render_template('ranking.html', 
                          puntaje = session['puntos'], 
                          nombre = session['usuarioGlobal'], 
-                         tiempo = con_dos_decimales)
+                         tiempo = con_dos_decimales, 
+                         top1 = top1, 
+                         top2 = top2)
 
 app.run(host='0.0.0.0', port=81)

@@ -37,10 +37,10 @@ h1{
   font-size: 50%;
 }
 #screen1{
-    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 20px;
+
 }
 .rectangulo1 {
     width: 1000px; 
@@ -75,4 +75,10 @@ img {
 }
 .navbar:hover{
   color:#38ABD9;
+}
+h3{
+  font-family: 'ArcadeClassic';
+    font-size: 50%;
+    color: #E84BC7;
+    margin-top:30px;
 }

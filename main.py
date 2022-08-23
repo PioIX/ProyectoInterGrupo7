@@ -151,18 +151,23 @@ def pregunta():
 @app.route('/opcion1')
 def opcion1():
   if session['opcion1'] == 'True':
-    session['puntos'] = session['puntos'] + 1
     session['respuesta'] = "¡CORRECTO!"
+    if session['dificultad'] == 1:
+      session['puntos'] = session['puntos'] + 1
+    else:
+      session['puntos'] = session['puntos'] + 2
   else:
     session['respuesta'] = "¡INCORRECTO!"
   return redirect(url_for('datos'))
 
-
 @app.route('/opcion2')
 def opcion2():
   if session['opcion2'] == 'True':
-    session['puntos'] = session['puntos'] + 1
     session['respuesta'] = "¡CORRECTO!"
+    if session['dificultad'] == 1:
+      session['puntos'] = session['puntos'] + 1
+    else:
+      session['puntos'] = session['puntos'] + 2
   else:
     session['respuesta'] = "¡INCORRECTO!"
   return redirect(url_for('datos'))
@@ -170,8 +175,11 @@ def opcion2():
 @app.route('/opcion3')
 def opcion3():
   if session['opcion3'] == 'True':
-    session['puntos'] = session['puntos'] + 1
     session['respuesta'] = "¡CORRECTO!"
+    if session['dificultad'] == 1:
+      session['puntos'] = session['puntos'] + 1
+    else:
+      session['puntos'] = session['puntos'] + 2
   else:
     session['respuesta'] = "¡INCORRECTO!"
   return redirect(url_for('datos'))
@@ -179,8 +187,11 @@ def opcion3():
 @app.route('/opcion4')
 def opcion4():
   if session['opcion4'] == 'True':
-    session['puntos'] = session['puntos'] + 1
     session['respuesta'] = "¡CORRECTO!"
+    if session['dificultad'] == 1:
+      session['puntos'] = session['puntos'] + 1
+    else:
+      session['puntos'] = session['puntos'] + 2
   else:
     session['respuesta'] = "¡INCORRECTO!"
   return redirect(url_for('datos'))
@@ -193,22 +204,32 @@ def datos():
 
 @app.route('/puntaje')
 def ranking():
-  
-  top5 = []
-  top5.append(session['puntos'])
-  
   end = time.time()
   session['tiempoFinal'] = end
   tiempo = format(session['tiempoFinal']-session['tiempoInicio'])
   tiempo = float(tiempo)
   con_dos_decimales = round(tiempo, 2)
-  top5.sort()
-  largo = len(top5)
-  ultimo = largo - 1
-  top1 = top5[ultimo]
-  top2 = top5[ultimo-1]
-  
+
   conn = sqlite3.connect('tabla.db')
+  q = f"""SELECT nombre, tiempo, puntaje FROM Usuarios ORDER BY puntaje DESC LIMIT 5  """   
+  resu = conn.execute(q)
+  lista = resu.fetchall()
+  nombre1 = lista[0][0]
+  tiempo1 = lista[0][1]
+  puntaje1 = lista[0][2]
+  nombre2 = lista[1][0]
+  tiempo2 = lista[1][1]
+  puntaje2 = lista[1][2]
+  nombre3 = lista[2][0]
+  tiempo3 = lista[2][1]
+  puntaje3 = lista[2][2]
+  nombre4 = lista[3][0]
+  tiempo4 = lista[3][1]
+  puntaje4 = lista[3][2]
+  nombre5 = lista[4][0]
+  tiempo5 = lista[4][1]
+  puntaje5 = lista[4][2]
+  
   q = f"""UPDATE Usuarios SET puntaje = '{session['puntos']}' WHERE nombre = '{session['usuarioGlobal']}' """
   conn.execute(q)
   conn.commit()
@@ -217,7 +238,20 @@ def ranking():
                          puntaje = session['puntos'], 
                          nombre = session['usuarioGlobal'], 
                          tiempo = con_dos_decimales, 
-                         top1 = top1, 
-                         top2 = top2)
+                         top1 = puntaje1, 
+                         top2 = puntaje2, 
+                         top3 = puntaje3, 
+                         top4 = puntaje4, 
+                         top5 = puntaje5, 
+                         nombre1 = nombre1, 
+                         nombre2 = nombre2, 
+                         nombre3 = nombre3, 
+                         nombre4 = nombre4, 
+                         nombre5 = nombre5,
+                         tiempo1 = tiempo1, 
+                         tiempo2 = tiempo2, 
+                         tiempo3 = tiempo3, 
+                         tiempo4 = tiempo4, 
+                         tiempo5 = tiempo5)
 
 app.run(host='0.0.0.0', port=81)

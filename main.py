@@ -153,9 +153,9 @@ def opcion1():
   if session['opcion1'] == 'True':
     session['respuesta'] = "¡CORRECTO!"
     if session['dificultad'] == 1:
-      session['puntos'] = session['puntos'] + 1
-    else:
       session['puntos'] = session['puntos'] + 2
+    else:
+      session['puntos'] = session['puntos'] + 1
   else:
     session['respuesta'] = "¡INCORRECTO!"
   return redirect(url_for('datos'))
@@ -165,9 +165,9 @@ def opcion2():
   if session['opcion2'] == 'True':
     session['respuesta'] = "¡CORRECTO!"
     if session['dificultad'] == 1:
-      session['puntos'] = session['puntos'] + 1
-    else:
       session['puntos'] = session['puntos'] + 2
+    else:
+      session['puntos'] = session['puntos'] + 1
   else:
     session['respuesta'] = "¡INCORRECTO!"
   return redirect(url_for('datos'))
@@ -177,9 +177,9 @@ def opcion3():
   if session['opcion3'] == 'True':
     session['respuesta'] = "¡CORRECTO!"
     if session['dificultad'] == 1:
-      session['puntos'] = session['puntos'] + 1
-    else:
       session['puntos'] = session['puntos'] + 2
+    else:
+      session['puntos'] = session['puntos'] + 1
   else:
     session['respuesta'] = "¡INCORRECTO!"
   return redirect(url_for('datos'))
@@ -189,9 +189,9 @@ def opcion4():
   if session['opcion4'] == 'True':
     session['respuesta'] = "¡CORRECTO!"
     if session['dificultad'] == 1:
-      session['puntos'] = session['puntos'] + 1
-    else:
       session['puntos'] = session['puntos'] + 2
+    else:
+      session['puntos'] = session['puntos'] + 1
   else:
     session['respuesta'] = "¡INCORRECTO!"
   return redirect(url_for('datos'))
@@ -209,6 +209,7 @@ def ranking():
   tiempo = format(session['tiempoFinal']-session['tiempoInicio'])
   tiempo = float(tiempo)
   con_dos_decimales = round(tiempo, 2)
+  print(con_dos_decimales)
 
   conn = sqlite3.connect('tabla.db')
   q = f"""SELECT nombre, tiempo, puntaje FROM Usuarios ORDER BY puntaje DESC LIMIT 5  """   
@@ -230,7 +231,7 @@ def ranking():
   tiempo5 = lista[4][1]
   puntaje5 = lista[4][2]
   
-  q = f"""UPDATE Usuarios SET puntaje = '{session['puntos']}' WHERE nombre = '{session['usuarioGlobal']}' """
+  q = f"""UPDATE Usuarios SET puntaje = '{session['puntos']}', tiempo = '{con_dos_decimales}' WHERE nombre = '{session['usuarioGlobal']}' """
   conn.execute(q)
   conn.commit()
   conn.close() 
@@ -253,5 +254,6 @@ def ranking():
                          tiempo3 = tiempo3, 
                          tiempo4 = tiempo4, 
                          tiempo5 = tiempo5)
+
 
 app.run(host='0.0.0.0', port=81)

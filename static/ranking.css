@@ -44,7 +44,7 @@ h1{
 }
 .rectangulo1 {
     width: 1000px; 
-    height: 100px; 
+    height: auto; 
     background: #BDE2F1;
     border-radius: 15px;
     display: flex;

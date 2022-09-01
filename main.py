@@ -212,6 +212,8 @@ def ranking():
   print(con_dos_decimales)
 
   conn = sqlite3.connect('tabla.db')
+  q = f"""UPDATE Usuarios SET puntaje = '{session['puntos']}', tiempo = '{con_dos_decimales}' WHERE nombre = '{session['usuarioGlobal']}' """
+
   q = f"""SELECT nombre, tiempo, puntaje FROM Usuarios ORDER BY puntaje DESC LIMIT 5  """   
   resu = conn.execute(q)
   lista = resu.fetchall()
@@ -230,8 +232,7 @@ def ranking():
   nombre5 = lista[4][0]
   tiempo5 = lista[4][1]
   puntaje5 = lista[4][2]
-  
-  q = f"""UPDATE Usuarios SET puntaje = '{session['puntos']}', tiempo = '{con_dos_decimales}' WHERE nombre = '{session['usuarioGlobal']}' """
+
   conn.execute(q)
   conn.commit()
   conn.close() 
